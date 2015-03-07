@@ -7,7 +7,7 @@ Generate XML for the "[Import Assets from XML Tool]" with JavaScript!
 ## Example
 
 ```js
-var importer = require('node-matrix-xml');
+var importer = require('node-matrix-importer');
 var xml = importer();
 
 xml.createAsset({
