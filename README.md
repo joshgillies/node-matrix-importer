@@ -29,13 +29,53 @@ An action is a task that is performed against a Squiz Matrix system.
 
 #### importer.addPath(opts)
 
+`opts` in an object used to define the `addPath` action properties
+
+  * `opts.id`
+  * `opts.path`
+  * `opts.assetId`
+
 #### importer.createAsset(opts)
+
+`opts` in an object used to define the `createAsset` action properties
+
+  * `opts.id`
+  * `opts.parentId`
+  * `opts.type`
+  * `opts.link`
+  * `opts.value`
+  * `opts.dependant`
+  * `opts.exclusive`
 
 #### importer.createLink(opts)
 
+`opts` in an object used to define the `createLink` action properties
+
+  * `opts.to`
+  * `opts.from`
+  * `opts.link`
+  * `opts.value`
+  * `opts.dependant`
+  * `opts.exclusive`
+  * `opts.major`
+
 #### importer.setAttribute(opts)
 
+`opts` in an object used to define the `setAttribute` action properties
+
+  * `opts.id`
+  * `opts.assetId`
+  * `opts.attribute`
+  * `opts.value`
+
 #### importer.setPermission(opts)
+
+`opts` in an object used to define the `setPermission` action properties
+
+  * `opts.assetId`
+  * `opts.permission`
+  * `opts.granted`
+  * `opts.userId`
 
 ## License
 
