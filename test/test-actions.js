@@ -1,5 +1,5 @@
 var helpers = require('../helpers');
-var actions = require('../');
+var action = require('../action');
 var test = require('tape');
 
 test('use shorthand helpers', function(t) {
@@ -15,27 +15,27 @@ test('join asset type with id', function(t) {
 
 test('create action ids', function(t) {
   t.equal(
-    actions.setActionId('add_web_path')('Site_1'),
+    action.setActionId('add_web_path')('Site_1'),
     'add_Site_1_path',
     'add path action id'
   );
   t.equal(
-    actions.setActionId('create_asset')('Site_1'),
+    action.setActionId('create_asset')('Site_1'),
     'create_Site_1',
     'create asset action id'
   );
   t.equal(
-    actions.setActionId('create_link')('notice', 1, 2),
+    action.setActionId('create_link')('notice', 1, 2),
     'link_notice_1_to_2',
     'create link action id'
   );
   t.equal(
-    actions.setActionId('set_attribute_value')('Site_1', 'name'),
+    action.setActionId('set_attribute_value')('Site_1', 'name'),
     'set_Site_1_name',
     'set attribute action id'
   );
   t.equal(
-    actions.setActionId('set_permission')(1, 1, 2),
+    action.setActionId('set_permission')(1, 1, 2),
     'set_permission_1_1_2',
     'set permission action id'
   );
@@ -45,7 +45,7 @@ test('create action ids', function(t) {
 test('create actions', function(t) {
   var tests = {
     add_web_path: {
-      action: actions.addPath({
+      action: action.Action('add_path', {
         id: 'Site_1',
         path: 'test-site',
         assetId: '1'
@@ -66,7 +66,7 @@ test('create actions', function(t) {
       ].join('\n')
     },
     create_asset: {
-      action: actions.createAsset({
+      action: action.Action('create_asset', {
         id: 'Site_1',
         parentId: 1,
         type: 'site'
@@ -94,32 +94,8 @@ test('create actions', function(t) {
         '</action>'
       ].join('\n')
     },
-    set_attribute: {
-      action: actions.setAttribute({
-        id: 'Site_1',
-        assetId: 1,
-        attribute: 'html',
-        value: 'Test Site'
-      }),
-      expected: {
-        action_id: 'set_html_Site_1',
-        action_type: 'set_attribute_value',
-        asset: 1,
-        attribute: 'html',
-        value: 'Test Site'
-      },
-      xml: [
-        '<action>',
-        '  <action_id>set_html_Site_1</action_id>',
-        '  <action_type>set_attribute_value</action_type>',
-        '  <asset>1</asset>',
-        '  <attribute>html</attribute>',
-        '  <value>Test Site</value>',
-        '</action>'
-      ].join('\n')
-    },
     create_link: {
-      action: actions.createLink({
+      action: action.Action('create_link', {
         to: 2,
         from: 1
       }),
@@ -148,8 +124,32 @@ test('create actions', function(t) {
         '</action>'
       ].join('\n')
     },
+    set_attribute: {
+      action: action.Action('set_attribute', {
+        id: 'Site_1',
+        assetId: 1,
+        attribute: 'html',
+        value: 'Test Site'
+      }),
+      expected: {
+        action_id: 'set_html_Site_1',
+        action_type: 'set_attribute_value',
+        asset: 1,
+        attribute: 'html',
+        value: 'Test Site'
+      },
+      xml: [
+        '<action>',
+        '  <action_id>set_html_Site_1</action_id>',
+        '  <action_type>set_attribute_value</action_type>',
+        '  <asset>1</asset>',
+        '  <attribute>html</attribute>',
+        '  <value>Test Site</value>',
+        '</action>'
+      ].join('\n')
+    },
     set_permission: {
-      action: actions.setPermission({
+      action: action.Action('set_permission', {
         assetId: 1,
         permission: 'read',
         granted: true,
@@ -178,7 +178,7 @@ test('create actions', function(t) {
   Object.keys(tests).forEach(function(test) {
     var action = tests[test].action;
     t.deepEqual(action, tests[test].expected, 'action ' + test + ' object');
-    t.equal(action.toXML(), tests[test].xml, 'action ' + test + ' XML');
+    t.equal(action.toString(), tests[test].xml, 'action ' + test + ' XML');
   });
   t.end();
 });

@@ -96,23 +96,9 @@ function Action(type, opts) {
   }, this);
 }
 
-Action.prototype.toXML = function actionToXML() {
+Action.prototype.toString = function actionToString() {
   return buildAction.buildObject(this);
 };
 
-exports.addPath = exports.addWebPath = function addPath(opts) {
-  return new Action('add_web_path', opts);
-};
-exports.createAsset = function createAsset(opts) {
-  return new Action('create_asset', opts);
-};
-exports.createLink = function createLink(opts) {
-  return new Action('create_link', opts);
-};
-exports.setAttribute = exports.setAttributeValue = function setAttribute(opts) {
-  return new Action('set_attribute_value', opts);
-};
-exports.setPermission = function setPermission(opts) {
-  return new Action('set_permission', opts);
-};
+exports.Action = Action;
 exports.setActionId = setActionId;
