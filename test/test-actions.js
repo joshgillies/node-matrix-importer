@@ -20,6 +20,11 @@ test('create action ids', function(t) {
     'add path action id'
   );
   t.equal(
+    actions.setActionId('create_asset')('Site_1'),
+    'create_Site_1',
+    'create asset action id'
+  );
+  t.equal(
     actions.setActionId('create_link')('notice', 1, 2),
     'link_notice_1_to_2',
     'create link action id'
