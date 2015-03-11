@@ -1,5 +1,6 @@
 var helpers = require('../helpers');
 var action = require('../action');
+var importer = require('../');
 var test = require('tape');
 
 test('use shorthand helpers', function(t) {
@@ -43,13 +44,14 @@ test('create action ids', function(t) {
 });
 
 test('create actions', function(t) {
+  var xml = importer();
   var tests = {
-    add_web_path: {
-      action: action.Action('add_path', {
+    add_path: {
+      opts: {
         id: 'Site_1',
         path: 'test-site',
         assetId: '1'
-      }),
+      },
       expected: {
         action_id: 'add_Site_1_path',
         action_type: 'add_web_path',
@@ -66,11 +68,11 @@ test('create actions', function(t) {
       ].join('\n')
     },
     create_asset: {
-      action: action.Action('create_asset', {
+      opts: {
         id: 'Site_1',
         parentId: 1,
         type: 'site'
-      }),
+      },
       expected: {
         action_id: 'create_Site_1',
         action_type: 'create_asset',
@@ -95,10 +97,10 @@ test('create actions', function(t) {
       ].join('\n')
     },
     create_link: {
-      action: action.Action('create_link', {
+      opts: {
         to: 2,
         from: 1
-      }),
+      },
       expected: {
         action_id: 'link_1_2_to_1',
         action_type: 'create_link',
@@ -125,12 +127,12 @@ test('create actions', function(t) {
       ].join('\n')
     },
     set_attribute: {
-      action: action.Action('set_attribute', {
+      opts: {
         id: 'Site_1',
         assetId: 1,
         attribute: 'html',
         value: 'Test Site'
-      }),
+      },
       expected: {
         action_id: 'set_html_Site_1',
         action_type: 'set_attribute_value',
@@ -149,12 +151,12 @@ test('create actions', function(t) {
       ].join('\n')
     },
     set_permission: {
-      action: action.Action('set_permission', {
+      opts: {
         assetId: 1,
         permission: 'read',
         granted: true,
         userId: 7
-      }),
+      },
       expected: {
         action_id: 'set_permission_1_read_7',
         action_type: 'set_permission',
@@ -176,9 +178,38 @@ test('create actions', function(t) {
     }
   };
   Object.keys(tests).forEach(function(test) {
-    var action = tests[test].action;
-    t.deepEqual(action, tests[test].expected, 'action ' + test + ' object');
-    t.equal(action.toString(), tests[test].xml, 'action ' + test + ' XML');
+    var opts = tests[test].opts;
+    var actionConstructor = action.Action(test, opts);
+    var actionImporter;
+
+    if (test === 'add_path')
+      actionImporter = xml.addPath(opts);
+
+    if (test === 'create_asset')
+      actionImporter = xml.createAsset(opts);
+
+    if (test === 'create_link')
+      actionImporter = xml.createLink(opts);
+
+    if (test === 'set_attribute')
+      actionImporter = xml.setAttribute(opts);
+
+    if (test === 'set_permission')
+      actionImporter = xml.setPermission(opts);
+
+    t.deepEqual(actionConstructor, tests[test].expected, 'action ' + test + ' from Constructor object');
+    t.equal(actionConstructor.toString(), tests[test].xml, 'action ' + test + ' from Constructor XML');
+    t.deepEqual(actionImporter, tests[test].expected, 'action ' + test + ' from Importer object');
+    t.equal(actionImporter.toString(), tests[test].xml, 'action ' + test + ' from Importer XML');
   });
+  // UGLY! Need to produce a fixture for this...
+  t.equal(xml.toString(), [
+    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
+    '<actions>',
+    Object.keys(tests).map(function(test) {
+      return '  ' + tests[test].xml.split('\n').join('\n  ');
+    }).join('\n'),
+    '</actions>'
+  ].join('\n'), 'generate valid import XML');
   t.end();
 });
