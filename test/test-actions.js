@@ -2,6 +2,7 @@ var helpers = require('../helpers');
 var action = require('../action');
 var importer = require('../');
 var test = require('tape');
+var fs = require('fs');
 
 test('use shorthand helpers', function(t) {
   t.equal(helpers.keyShorthand('add_path'), 'add_web_path', 'shorthand selector');
@@ -202,14 +203,6 @@ test('create actions', function(t) {
     t.deepEqual(actionImporter, tests[test].expected, 'action ' + test + ' from Importer object');
     t.equal(actionImporter.toString(), tests[test].xml, 'action ' + test + ' from Importer XML');
   });
-  // UGLY! Need to produce a fixture for this...
-  t.equal(xml.toString(), [
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
-    '<actions>',
-    Object.keys(tests).map(function(test) {
-      return '  ' + tests[test].xml.split('\n').join('\n  ');
-    }).join('\n'),
-    '</actions>'
-  ].join('\n'), 'generate valid import XML');
+  t.equal(xml.toString(), fs.readFileSync(__dirname + '/test.xml', { encoding: 'utf-8' }), 'generate valid import XML');
   t.end();
 });
