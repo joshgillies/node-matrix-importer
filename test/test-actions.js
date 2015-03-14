@@ -181,13 +181,18 @@ test('create actions', function(t) {
   Object.keys(tests).forEach(function(test) {
     var opts = tests[test].opts;
     var actionConstructor = action.Action(test, opts);
-    var actionImporter;
+    var actionImporter, asset;
 
     if (test === 'add_path')
       actionImporter = xml.addPath(opts);
 
-    if (test === 'create_asset')
-      actionImporter = xml.createAsset(opts);
+    if (test === 'create_asset') {
+      asset = xml.createAsset(opts.type);
+      actionImporter = asset.action;
+      t.equal(asset.id, 1, 'action ' + test + ' returns ID');
+      t.deepEqual(actionImporter, xml.getActionById(asset.id), 'can retrieve action from ID');
+      t.notOk(xml.getActionById(100), 'undefined if no action with specified ID');
+    }
 
     if (test === 'create_link')
       actionImporter = xml.createLink(opts);

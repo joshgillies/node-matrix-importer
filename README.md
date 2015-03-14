@@ -10,10 +10,8 @@ Generate XML for the "[Import Assets from XML Tool]" with JavaScript!
 var importer = require('node-matrix-importer');
 var xml = importer();
 
-xml.createAsset({
-  id: 'Site_1',
-  parentId: 1,
-  type: 'site'
+xml.createAsset('site', {
+  parentId: 1
 });
 
 console.log(xml.toString());
