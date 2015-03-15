@@ -21,6 +21,8 @@ console.log(xml.toString());
 
 ### Importer (WIP)
 
+`node-matrix-importer` provides an API for generating XML for the "[Import Assets from XML Tool]" via `require('node-matrix-importer')`.
+
 #### importer.addPath(opts)
 
 The `opts` argument accepts an object with the following properties:
@@ -29,11 +31,13 @@ The `opts` argument accepts an object with the following properties:
   * `opts.path`
   * `opts.assetId`
 
-Returns a new Action instance, where `type` is automatically set to `add_path`.
+Returns a new Action instance: `new Action('add_path', opts);`.
 
 For more information on Actions Refer to the Actions section.
 
-#### importer.createAsset(opts)
+#### importer.createAsset(type, opts)
+
+The `type` argument is a shorthand of `opts.type`.
 
 The `opts` argument accepts an object with the following properties:
 
@@ -45,7 +49,7 @@ The `opts` argument accepts an object with the following properties:
   * `opts.dependant`
   * `opts.exclusive`
 
-Returns a new Action instance, where `type` is automatically set to `create_asset`.
+Returns a new Action instance: `new Action('create_asset', opts);`.
 
 For more information on Actions Refer to the Actions section.
 
@@ -61,7 +65,7 @@ The `opts` argument accepts an object with the following properties:
   * `opts.exclusive`
   * `opts.major`
 
-Returns a new Action instance, where `type` is automatically set to `create_link`.
+Returns a new Action instance: `new Action('create_link', opts);`.
 
 For more information on Actions Refer to the Actions section.
 
@@ -74,7 +78,7 @@ The `opts` argument accepts an object with the following properties:
   * `opts.attribute`
   * `opts.value`
 
-Returns a new Action instance, where `type` is automatically set to `set_attribute`.
+Returns a new Action instance: `new Action('set_attribute', opts);`.
 
 For more information on Actions Refer to the Actions section.
 
@@ -87,7 +91,7 @@ The `opts` argument accepts an object with the following properties:
   * `opts.granted`
   * `opts.userId`
 
-Returns a new Action instance, where `type` is automatically set to `set_permission`.
+Returns a new Action instance: `new Action('set_permission', opts);`.
 
 For more information on Actions Refer to the Actions section.
 
