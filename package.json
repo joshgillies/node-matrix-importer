@@ -1,5 +1,5 @@
 {
-  "name": "node-matrix-xml",
+  "name": "node-matrix-importer",
   "version": "1.0.0",
   "description": "Generate XML for the \"Import Assets from XML Tool\" with JavaScript!",
   "main": "index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/joshgillies/node-matrix-xml.git"
+    "url": "https://github.com/joshgillies/node-matrix-importer.git"
   },
   "keywords": [
     "matrix",
@@ -34,7 +34,7 @@
   "author": "Josh Gillies <npm@joshgilli.es> (http://joshgilli.es/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/joshgillies/node-matrix-xml/issues"
+    "url": "https://github.com/joshgillies/node-matrix-importer/issues"
   },
-  "homepage": "https://github.com/joshgillies/node-matrix-xml"
+  "homepage": "https://github.com/joshgillies/node-matrix-importer"
 }
