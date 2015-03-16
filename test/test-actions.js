@@ -109,7 +109,7 @@ test('create actions', function(t) {
         assetid: 2,
         is_dependant: 0,
         is_exclusive: 0,
-        is_major: '',
+        is_major: 0,
         link_type: 1,
         value: ''
       },
@@ -123,7 +123,7 @@ test('create actions', function(t) {
         '  <is_dependant>0</is_dependant>',
         '  <is_exclusive>0</is_exclusive>',
         '  <assetid>2</assetid>',
-        '  <is_major/>',
+        '  <is_major>0</is_major>',
         '</action>'
       ].join('\n')
     },
