@@ -52,13 +52,17 @@ function Action(type, opts) {
     granted: opts.granted ? 1 : 0,
     is_dependant: opts.dependant ? 1 : 0,
     is_exclusive: opts.exclusive ? 1 : 0,
-    is_major: opts.major || '', // ???
+    is_major: opts.major ? 1 : 0, // ???
     link_type: typeof opts.link === 'string' ?
-      LINKS[opts.link.toUpperCase() || 'TYPE_1'] : opts.link || 1,
+      LINKS[opts.link.toUpperCase()] ?
+        LINKS[opts.link.toUpperCase()] : LINKS['TYPE_1']
+      : opts.link || 1,
     parentid: opts.parentId || 1,
     path: opts.path, // web path
     permission: typeof opts.permission === 'string' ?
-      PERMISSIONS[opts.permission.toUpperCase() || 'READ'] : opts.permission || 1,
+      PERMISSIONS[opts.permission.toUpperCase()] ?
+        PERMISSIONS[opts.permission.toUpperCase()] : PERMISSIONS['READ']
+      : opts.permission || 1,
     type_code: opts.type,
     userid: opts.userId || PUBLIC_USER,
     value: opts.value || ''
