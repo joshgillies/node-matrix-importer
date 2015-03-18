@@ -1,4 +1,4 @@
-var Action = require('./action').Action;
+var Action = require('node-matrix-import-actions');
 var assets = require('node-matrix-assets');
 var xml2js = require('xml2js');
 

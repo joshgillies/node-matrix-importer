@@ -1,47 +1,11 @@
-var helpers = require('../helpers');
-var action = require('../action');
 var importer = require('../');
 var test = require('tape');
 var fs = require('fs');
+var xml2js = require('xml2js');
 
-test('use shorthand helpers', function(t) {
-  t.equal(helpers.keyShorthand('add_path'), 'add_web_path', 'shorthand selector');
-  t.equal(helpers.keyShorthand('create_asset'), 'create_asset', 'passthrough when no shorthand is available');
-  t.end();
-});
-
-test('join asset type with id', function(t) {
-  t.equal(helpers.asset('Site', '1'), 'Site_1');
-  t.end();
-});
-
-test('create action ids', function(t) {
-  t.equal(
-    action.setActionId('add_web_path')('Site_1'),
-    'add_Site_1_path',
-    'add path action id'
-  );
-  t.equal(
-    action.setActionId('create_asset')('Site_1'),
-    'create_Site_1',
-    'create asset action id'
-  );
-  t.equal(
-    action.setActionId('create_link')('notice', 1, 2),
-    'link_notice_1_to_2',
-    'create link action id'
-  );
-  t.equal(
-    action.setActionId('set_attribute_value')('Site_1', 'name'),
-    'set_Site_1_name',
-    'set attribute action id'
-  );
-  t.equal(
-    action.setActionId('set_permission')(1, 1, 2),
-    'set_permission_1_1_2',
-    'set permission action id'
-  );
-  t.end();
+var buildAction = new xml2js.Builder({
+  rootName: 'action',
+  headless: true
 });
 
 test('create actions', function(t) {
@@ -180,7 +144,6 @@ test('create actions', function(t) {
   };
   Object.keys(tests).forEach(function(test) {
     var opts = tests[test].opts;
-    var actionConstructor = action.Action(test, opts);
     var actionImporter, asset;
 
     if (test === 'add_path')
@@ -191,7 +154,7 @@ test('create actions', function(t) {
       actionImporter = asset.action;
       t.equal(asset.id, 1, 'action ' + test + ' returns ID');
       t.deepEqual(actionImporter, xml.getActionById(asset.id), 'can retrieve action from ID');
-      t.notOk(xml.getActionById(100), 'undefined if no action with specified ID');
+      t.notOk(xml.getActionById(100), 'undefined if no action exists with specified ID');
     }
 
     if (test === 'create_link')
@@ -203,10 +166,8 @@ test('create actions', function(t) {
     if (test === 'set_permission')
       actionImporter = xml.setPermission(opts);
 
-    t.deepEqual(actionConstructor, tests[test].expected, 'action ' + test + ' from Constructor object');
-    t.equal(actionConstructor.toString(), tests[test].xml, 'action ' + test + ' from Constructor XML');
     t.deepEqual(actionImporter, tests[test].expected, 'action ' + test + ' from Importer object');
-    t.equal(actionImporter.toString(), tests[test].xml, 'action ' + test + ' from Importer XML');
+    t.equal(buildAction.buildObject(actionImporter), tests[test].xml, 'action ' + test + ' from Importer XML');
   });
   t.equal(xml.toString(), fs.readFileSync(__dirname + '/test.xml', { encoding: 'utf-8' }), 'generate valid import XML');
   t.end();

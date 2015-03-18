@@ -33,7 +33,7 @@ The `opts` argument accepts an object with the following properties:
 
 Returns a new Action instance: `new Action('add_path', opts);`.
 
-For more information on Actions Refer to the Actions section.
+For more information on Actions refer to the [node-matrix-import-actions] module.
 
 #### importer.createAsset(type, opts)
 
@@ -51,7 +51,7 @@ The `opts` argument accepts an object with the following properties:
 
 Returns a new Action instance: `new Action('create_asset', opts);`.
 
-For more information on Actions Refer to the Actions section.
+For more information on Actions refer to the [node-matrix-import-actions] module.
 
 #### importer.createLink(opts)
 
@@ -67,7 +67,7 @@ The `opts` argument accepts an object with the following properties:
 
 Returns a new Action instance: `new Action('create_link', opts);`.
 
-For more information on Actions Refer to the Actions section.
+For more information on Actions refer to the [node-matrix-import-actions] module.
 
 #### importer.setAttribute(opts)
 
@@ -80,7 +80,7 @@ The `opts` argument accepts an object with the following properties:
 
 Returns a new Action instance: `new Action('set_attribute', opts);`.
 
-For more information on Actions Refer to the Actions section.
+For more information on Actions refer to the [node-matrix-import-actions] module.
 
 #### importer.setPermission(opts)
 
@@ -93,70 +93,11 @@ The `opts` argument accepts an object with the following properties:
 
 Returns a new Action instance: `new Action('set_permission', opts);`.
 
-For more information on Actions Refer to the Actions section.
-
-### Actions
-
-An action is a task performed against a Squiz Matrix system.
-
-`node-matrix-importer` provides an Action constructor via `require('node-matrix-importer/action').Action`
-
-#### Action(type, opts)
-
-`type` is a String representing the type of action. The following types are available:
-
-#### Action('add_path', opts)
-
-A `add_path` Action accepts an Object as it's second argument `opts` with the following properties:
-
-  * `opts.id`
-  * `opts.path`
-  * `opts.assetId`
-
-#### Action('create_asset', opts)
-
-A `create_asset` Action accepts an Object as it's second argument `opts` with the following properties:
-
-  * `opts.id`
-  * `opts.parentId`
-  * `opts.type`
-  * `opts.link`
-  * `opts.value`
-  * `opts.dependant`
-  * `opts.exclusive`
-
-#### Action('create_link', opts)
-
-A `create_link` Action accepts an Object as it's second argument `opts` with the following properties:
-
-  * `opts.to`
-  * `opts.from`
-  * `opts.link`
-  * `opts.value`
-  * `opts.dependant`
-  * `opts.exclusive`
-  * `opts.major`
-
-#### Action('set_attribute', opts)
-
-A `set_attribute` Action accepts an Object as it's second argument `opts` with the following properties:
-
-  * `opts.id`
-  * `opts.assetId`
-  * `opts.attribute`
-  * `opts.value`
-
-#### Action('set_permission', opts)
-
-A `set_permission` Action accepts an Object as it's second argument `opts` with the following properties:
-
-  * `opts.assetId`
-  * `opts.permission`
-  * `opts.granted`
-  * `opts.userId`
+For more information on Actions refer to the [node-matrix-import-actions] module.
 
 ## License
 
 MIT
 
+[node-matrix-import-actions]: https://github.com/joshgillies/node-matrix-import-actions
 [Import Assets from XML Tool]: http://manuals.matrix.squizsuite.net/tools/chapters/import-assets-from-xml-tool
