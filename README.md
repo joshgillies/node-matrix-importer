@@ -95,6 +95,18 @@ Returns a new Action instance: `new Action('set_permission', opts);`.
 
 For more information on Actions refer to the [node-matrix-import-actions] module.
 
+#### importer.toString(opts)
+
+`node-matrix-importer` internally manages a collection of actions created by calling
+the above methods. At any point you can get a full XML representation of them by
+calling `toString()` on your Importer instance.
+
+The `opts` argument controls the formatting of the output XML.
+
+  * `opts.pretty`: pretty print XML. Default: `true`
+  * `opts.indent`: whitespace for indentation (only if `opts.pretty = true`. Default: `' '`
+  * `opts.newline` newline character (only if `opts.pretty = true`. Default: `'\n'`
+
 ## License
 
 MIT

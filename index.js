@@ -2,10 +2,6 @@ var Action = require('node-matrix-import-actions');
 var assets = require('node-matrix-assets');
 var xml2js = require('xml2js');
 
-var buildActions = new xml2js.Builder({
-  rootName: 'actions'
-});
-
 function Importer(opts) {
   if (!(this instanceof Importer))
     return new Importer(opts);
@@ -64,8 +60,15 @@ Importer.prototype.setPermission = function setPermission(opts) {
   return this.addAction('set_permission', opts);
 };
 
-Importer.prototype.toString = function importerToString() {
-  return buildActions.buildObject({
+Importer.prototype.toString = function importerToString(renderOpts) {
+  var opts = {
+    rootName: 'actions'
+  };
+
+  if (renderOpts && typeof renderOpts === 'object')
+    opts.renderOpts = renderOpts;
+
+  return new xml2js.Builder(opts).buildObject({
     action: this.actions
   });
 };
