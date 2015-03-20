@@ -1,23 +1,20 @@
 var Action = require('node-matrix-import-actions');
 var assets = require('node-matrix-assets');
 var xml2js = require('xml2js');
+var extend = require('xtend');
 
 function Importer(opts) {
   if (!(this instanceof Importer))
     return new Importer(opts);
 
-  this.actions = [];
-  this.ids = [];
+  this._actions = [];
+  this._ids = [];
 }
 
 Importer.prototype.addAction = function addAction(type, opts) {
   var action = new Action(type, opts);
-  this.actions.push(action);
+  this._actions.push(action);
   return action;
-};
-
-Importer.prototype.getActionById = function getActionById(id) {
-  return this.actions[this.ids[id - 1]];
 };
 
 Importer.prototype.addPath = Importer.prototype.addWebPath = function addPath(opts) {
@@ -25,8 +22,6 @@ Importer.prototype.addPath = Importer.prototype.addWebPath = function addPath(op
 };
 
 Importer.prototype.createAsset = function createAsset(type, opts) {
-  var id = this.ids.length + 1;
-
   if (!opts)
     opts = {};
 
@@ -40,12 +35,11 @@ Importer.prototype.createAsset = function createAsset(type, opts) {
 
   if (!opts.id)
     opts.id = assets(opts.type) ?
-      assets(opts.type).name.replace(' ', '_') + '_' + id : undefined;
+      assets(opts.type).name.replace(' ', '_') + '_' + (this._ids.length + 1) : undefined;
 
-  return {
-    action: this.addAction('create_asset', opts),
-    id: this.ids.push(this.actions.length - 1)
-  };
+  var pointer = this._ids.push(this._actions.length);
+
+  return extend(this.addAction('create_asset', opts), { id: pointer });
 };
 
 Importer.prototype.createLink = function createLink(opts) {
@@ -60,6 +54,10 @@ Importer.prototype.setPermission = function setPermission(opts) {
   return this.addAction('set_permission', opts);
 };
 
+Importer.prototype.getActionById = function getActionById(id) {
+  return this._actions[this._ids[--id]];
+};
+
 Importer.prototype.toString = function importerToString(renderOpts) {
   var opts = {
     rootName: 'actions'
@@ -69,7 +67,7 @@ Importer.prototype.toString = function importerToString(renderOpts) {
     opts.renderOpts = renderOpts;
 
   return new xml2js.Builder(opts).buildObject({
-    action: this.actions
+    action: this._actions
   });
 };
 
