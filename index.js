@@ -17,7 +17,7 @@ Importer.prototype.addAction = function addAction(type, opts) {
   return action;
 };
 
-Importer.prototype.addPath = Importer.prototype.addWebPath = function addPath(opts) {
+Importer.prototype.addPath = function addPath(opts) {
   return this.addAction('add_path', opts);
 };
 
@@ -46,7 +46,7 @@ Importer.prototype.createLink = function createLink(opts) {
   return this.addAction('create_link', opts);
 };
 
-Importer.prototype.setAttribute = Importer.prototype.setAttributeValue = function setAttribute(opts) {
+Importer.prototype.setAttribute = function setAttribute(opts) {
   return this.addAction('set_attribute', opts);
 };
 
