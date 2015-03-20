@@ -69,7 +69,7 @@ test('create actions', function(t) {
       expected: {
         action_id: 'link_1_2_to_1',
         action_type: 'create_link',
-        asset: 1,
+        asset: '[[output://create_Site_1.assetid]]',
         assetid: 2,
         is_dependant: 0,
         is_exclusive: 0,
@@ -81,7 +81,7 @@ test('create actions', function(t) {
         '<action>',
         '  <action_id>link_1_2_to_1</action_id>',
         '  <action_type>create_link</action_type>',
-        '  <asset>1</asset>',
+        '  <asset>[[output://create_Site_1.assetid]]</asset>',
         '  <value/>',
         '  <link_type>1</link_type>',
         '  <is_dependant>0</is_dependant>',
@@ -101,7 +101,7 @@ test('create actions', function(t) {
       expected: {
         action_id: 'set_html_Site_1',
         action_type: 'set_attribute_value',
-        asset: 1,
+        asset: '[[output://create_Site_1.assetid]]',
         attribute: 'html',
         value: 'Test Site'
       },
@@ -109,7 +109,7 @@ test('create actions', function(t) {
         '<action>',
         '  <action_id>set_html_Site_1</action_id>',
         '  <action_type>set_attribute_value</action_type>',
-        '  <asset>1</asset>',
+        '  <asset>[[output://create_Site_1.assetid]]</asset>',
         '  <attribute>html</attribute>',
         '  <value>Test Site</value>',
         '</action>'
@@ -125,7 +125,7 @@ test('create actions', function(t) {
       expected: {
         action_id: 'set_permission_1_read_7',
         action_type: 'set_permission',
-        asset: 1,
+        asset: '[[output://create_Site_1.assetid]]',
         permission: 1,
         granted: 1,
         userid: 7
@@ -134,7 +134,7 @@ test('create actions', function(t) {
         '<action>',
         '  <action_id>set_permission_1_read_7</action_id>',
         '  <action_type>set_permission</action_type>',
-        '  <asset>1</asset>',
+        '  <asset>[[output://create_Site_1.assetid]]</asset>',
         '  <permission>1</permission>',
         '  <granted>1</granted>',
         '  <userid>7</userid>',

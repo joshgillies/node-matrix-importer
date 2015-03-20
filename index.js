@@ -3,6 +3,10 @@ var assets = require('node-matrix-assets');
 var xml2js = require('xml2js');
 var extend = require('xtend');
 
+function outputAsId(actionId) {
+  return '[[output://' + actionId + '.assetid]]';
+}
+
 function Importer(opts) {
   if (!(this instanceof Importer))
     return new Importer(opts);
@@ -13,7 +17,18 @@ function Importer(opts) {
 
 Importer.prototype.addAction = function addAction(type, opts) {
   var action = new Action(type, opts);
+
+  if (this.getActionById(action.asset))
+    action.asset = outputAsId(this.getActionById(action.asset).action_id);
+
+  if (this.getActionById(action.assetid))
+    action.assetid = outputAsId(this.getActionById(action.assetid).action_id);
+
+  if (this.getActionById(action.parentid))
+    action.parentid = outputAsId(this.getActionById(action.parentid).action_id);
+
   this._actions.push(action);
+
   return action;
 };
 

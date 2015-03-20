@@ -19,7 +19,7 @@
   <action>
     <action_id>link_1_2_to_1</action_id>
     <action_type>create_link</action_type>
-    <asset>1</asset>
+    <asset>[[output://create_Site_1.assetid]]</asset>
     <value/>
     <link_type>1</link_type>
     <is_dependant>0</is_dependant>
@@ -30,14 +30,14 @@
   <action>
     <action_id>set_html_Site_1</action_id>
     <action_type>set_attribute_value</action_type>
-    <asset>1</asset>
+    <asset>[[output://create_Site_1.assetid]]</asset>
     <attribute>html</attribute>
     <value>Test Site</value>
   </action>
   <action>
     <action_id>set_permission_1_read_7</action_id>
     <action_type>set_permission</action_type>
-    <asset>1</asset>
+    <asset>[[output://create_Site_1.assetid]]</asset>
     <permission>1</permission>
     <granted>1</granted>
     <userid>7</userid>
