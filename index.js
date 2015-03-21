@@ -11,14 +11,25 @@ function Importer(opts) {
   if (!(this instanceof Importer))
     return new Importer(opts);
 
-  this._actions = [];
+  if(!opts)
+    opts = {};
+
   this._ids = [];
+  this._sorted = !!opts.sortActions;
+  this._actions = this._sorted ? {
+    create_asset: [],
+    add_path: [],
+    set_attribute: [],
+    create_link: [],
+    set_permission: []
+  } : [];
 }
 
 Importer.prototype.addAction = function addAction(type, opts) {
+  var collection = this._sorted ? this._actions[type] : this._actions;
   var action = new Action(type, opts);
 
-  action.action_id = action.action_id.replace('#','');
+  action.action_id = action.action_id.replace('#', '');
 
   if (this.getActionById(action.asset))
     action.asset = outputAsId(this.getActionById(action.asset).action_id);
@@ -29,7 +40,7 @@ Importer.prototype.addAction = function addAction(type, opts) {
   if (this.getActionById(action.parentid))
     action.parentid = outputAsId(this.getActionById(action.parentid).action_id);
 
-  this._actions.push(action);
+  collection.push(action);
 
   return action;
 };
@@ -39,7 +50,8 @@ Importer.prototype.addPath = function addPath(opts) {
 };
 
 Importer.prototype.createAsset = function createAsset(type, opts) {
-  var pointer = this._ids.push(this._actions.length);
+  var collection = this._sorted ? this._actions.create_asset : this._actions;
+  var pointer = this._ids.push(collection.length);
 
   if (!opts)
     opts = {};
@@ -89,7 +101,11 @@ Importer.prototype.toString = function importerToString(renderOpts) {
     opts.renderOpts = renderOpts;
 
   return new xml2js.Builder(opts).buildObject({
-    action: this._actions
+    action: this._sorted ? Object.keys(this._actions).map(function mergeKeys(action) {
+      return this._actions[action];
+    }, this).reduce(function flatten(a, b) {
+      return a.concat(b);
+    }) : this._actions
   });
 };
 
