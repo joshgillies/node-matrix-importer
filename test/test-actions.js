@@ -64,7 +64,7 @@ test('create actions', function(t) {
     create_link: {
       opts: {
         to: 2,
-        from: 1
+        from: '#1'
       },
       expected: {
         action_id: 'link_1_2_to_1',
@@ -94,7 +94,7 @@ test('create actions', function(t) {
     set_attribute: {
       opts: {
         id: 'Site_1',
-        assetId: 1,
+        assetId: '#1',
         attribute: 'html',
         value: 'Test Site'
       },
@@ -117,7 +117,7 @@ test('create actions', function(t) {
     },
     set_permission: {
       opts: {
-        assetId: 1,
+        assetId: '#1',
         permission: 'read',
         granted: true,
         userId: 7
@@ -153,7 +153,7 @@ test('create actions', function(t) {
       asset = xml.createAsset(opts.type);
       actionImporter = asset;
       id = asset.id;
-      t.equal(asset.id, 1, 'action ' + test + ' returns ID');
+      t.equal(asset.id, '#1', 'action ' + test + ' returns ID');
       // asset id no longer needed
       delete asset.id;
       t.deepEqual(asset, xml.getActionById(id), 'can retrieve action from ID');

@@ -18,6 +18,8 @@ function Importer(opts) {
 Importer.prototype.addAction = function addAction(type, opts) {
   var action = new Action(type, opts);
 
+  action.action_id = action.action_id.replace('#','');
+
   if (this.getActionById(action.asset))
     action.asset = outputAsId(this.getActionById(action.asset).action_id);
 
@@ -54,7 +56,7 @@ Importer.prototype.createAsset = function createAsset(type, opts) {
 
   var pointer = this._ids.push(this._actions.length);
 
-  return extend(this.addAction('create_asset', opts), { id: pointer });
+  return extend(this.addAction('create_asset', opts), { id: '#' + pointer });
 };
 
 Importer.prototype.createLink = function createLink(opts) {
@@ -70,7 +72,10 @@ Importer.prototype.setPermission = function setPermission(opts) {
 };
 
 Importer.prototype.getActionById = function getActionById(id) {
-  return this._actions[this._ids[--id]];
+  if (/#/.test(id+='')) {
+    id = +(id.replace('#', ''));
+    return this._actions[this._ids[--id]];
+  }
 };
 
 Importer.prototype.toString = function importerToString(renderOpts) {
