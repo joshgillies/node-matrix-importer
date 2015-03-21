@@ -34,6 +34,9 @@ Importer.prototype.addAction = function addAction(type, opts) {
   if (this.getActionById(action.asset))
     action.asset = outputAsId(this.getActionById(action.asset).action_id);
 
+  if (this.getActionById(action.userid))
+    action.userid = outputAsId(this.getActionById(action.userid).action_id);
+
   if (this.getActionById(action.assetid))
     action.assetid = outputAsId(this.getActionById(action.assetid).action_id);
 
