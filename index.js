@@ -39,6 +39,8 @@ Importer.prototype.addPath = function addPath(opts) {
 };
 
 Importer.prototype.createAsset = function createAsset(type, opts) {
+  var pointer = this._ids.push(this._actions.length);
+
   if (!opts)
     opts = {};
 
@@ -52,9 +54,7 @@ Importer.prototype.createAsset = function createAsset(type, opts) {
 
   if (!opts.id)
     opts.id = assets(opts.type) ?
-      assets(opts.type).name.replace(' ', '_') + '_' + (this._ids.length + 1) : undefined;
-
-  var pointer = this._ids.push(this._actions.length);
+      assets(opts.type).name.replace(' ', '_') + '_' + (this._ids.length) : undefined;
 
   return extend(this.addAction('create_asset', opts), { id: '#' + pointer });
 };
@@ -72,9 +72,11 @@ Importer.prototype.setPermission = function setPermission(opts) {
 };
 
 Importer.prototype.getActionById = function getActionById(id) {
+  var collection = this._sorted ? this._actions.create_asset : this._actions;
+
   if (/#/.test(id+='')) {
     id = +(id.replace('#', ''));
-    return this._actions[this._ids[--id]];
+    return extend(collection[this._ids[id - 1]], { id: '#' + id });
   }
 };
 

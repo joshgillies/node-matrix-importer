@@ -1,7 +1,7 @@
 var importer = require('../');
+var xml2js = require('xml2js');
 var test = require('tape');
 var fs = require('fs');
-var xml2js = require('xml2js');
 
 var buildAction = new xml2js.Builder({
   rootName: 'action',
@@ -154,10 +154,10 @@ test('create actions', function(t) {
       actionImporter = asset;
       id = asset.id;
       t.equal(asset.id, '#1', 'action ' + test + ' returns ID');
-      // asset id no longer needed
-      delete asset.id;
       t.deepEqual(asset, xml.getActionById(id), 'can retrieve action from ID');
       t.notOk(xml.getActionById(100), 'undefined if no action exists with specified ID');
+      // asset id no longer needed
+      delete asset.id;
     }
 
     if (test === 'create_link')
