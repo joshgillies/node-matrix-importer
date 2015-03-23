@@ -23,6 +23,12 @@ console.log(xml.toString());
 
 `node-matrix-importer` provides an API for generating XML for the "[Import Assets from XML Tool]" via `require('node-matrix-importer')`.
 
+#### var importer = new Importer(opts)
+
+The `opts` argument accepts an object with the following properties:
+
+  * `opts.sortActions`: whether Actions should be sorted into an internal collection. Default: `false`
+
 #### importer.addPath(opts)
 
 The `opts` argument accepts an object with the following properties:
@@ -49,7 +55,9 @@ The `opts` argument accepts an object with the following properties:
   * `opts.dependant`
   * `opts.exclusive`
 
-Returns a new Action instance: `new Action('create_asset', opts);`.
+Returns a new Action instance: `new Action('create_asset', opts);`, with the addition
+of an `action.id` propterty; `action.id` in this case is a String in the form of `'#{id}'`,
+where `id` is a unique identifier.
 
 For more information on Actions refer to the [node-matrix-import-actions] module.
 
@@ -94,6 +102,14 @@ The `opts` argument accepts an object with the following properties:
 Returns a new Action instance: `new Action('set_permission', opts);`.
 
 For more information on Actions refer to the [node-matrix-import-actions] module.
+
+#### importer.getActionById(id)
+
+The `id` argument accepts a String in the form of `'#{id}'` where `id` corresponds
+to an Action created with `importer.createAsset(type, opts)`.
+
+Returns the matching Action instance, or `undefined` if an Action with the supplied
+`id` wasn't found.
 
 #### importer.toString(opts)
 
