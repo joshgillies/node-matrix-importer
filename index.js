@@ -67,9 +67,8 @@ Importer.prototype.createAsset = function createAsset(type, opts) {
     type = undefined;
   }
 
-  if (!opts.id)
-    opts.id = assets(opts.type) ?
-      assets(opts.type).name.replace(' ', '_') + '_' + (this._ids.length) : undefined;
+  if (!opts.id && opts.type && assets(opts.type))
+    opts.id = assets(opts.type).name.replace(' ', '_') + '_' + (this._ids.length);
 
   return extend(this.addAction('create_asset', opts), { id: '#' + pointer });
 };
