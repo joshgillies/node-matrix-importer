@@ -7,11 +7,26 @@ Generate XML for the "[Import Assets from XML Tool]" with JavaScript!
 ## Example
 
 ```js
-var importer = require('node-matrix-importer');
-var xml = importer();
+var Importer = require('node-matrix-importer');
+var xml = Importer();
 
-xml.createAsset('site', {
+var rootFolder = xml.createAsset('folder', {
   parentId: 1
+});
+var mySite = xml.createAsset('site', {
+  parentId: rootFolder.id
+});
+
+xml.setAttribute({
+  assetId: rootFolder.id,
+  attribute: 'name',
+  value: 'Sites'
+});
+
+xml.setAttribute({
+  assetId: mySite.id,
+  attribute: 'name',
+  value: 'My Site'
 });
 
 console.log(xml.toString());
