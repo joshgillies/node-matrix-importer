@@ -36,7 +36,6 @@ test('create actions', function(t) {
     },
     create_asset: {
       opts: {
-        id: 'Site_1',
         parentId: 1,
         type: 'site'
       },
@@ -95,7 +94,6 @@ test('create actions', function(t) {
     },
     set_attribute: {
       opts: {
-        id: 'Site_1',
         assetId: '#1',
         attribute: 'html',
         value: 'Test Site'
