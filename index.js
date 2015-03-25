@@ -109,18 +109,27 @@ Importer.prototype.getActionById = function getActionById(id) {
 
 Importer.prototype.toString = function importerToString(renderOpts) {
   var opts = {
-    rootName: 'actions'
+    rootName: 'actions',
+    cdata: true
   };
 
   if (renderOpts && typeof renderOpts === 'object')
     opts.renderOpts = renderOpts;
 
   return new xml2js.Builder(opts).buildObject({
-    action: this._sorted ? Object.keys(this._actions).map(function mergeKeys(action) {
+    action: (this._sorted ? Object.keys(this._actions).map(function mergeKeys(action) {
       return this._actions[action];
     }, this).reduce(function flatten(a, b) {
       return a.concat(b);
-    }) : this._actions
+    }) : this._actions).map(function makeCDATA(action) {
+      if (action.value) {
+        action = extend({}, action);
+        // for text to be wrapped in <![CDATA[]]> value must be an array.
+        // Ref: https://github.com/Leonidas-from-XIV/node-xml2js/issues/178
+        action.value = [action.value];
+      }
+      return action;
+    })
   });
 };
 
