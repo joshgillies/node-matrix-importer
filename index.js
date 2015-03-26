@@ -108,6 +108,12 @@ Importer.prototype.getActionById = function getActionById(id) {
 };
 
 Importer.prototype.toString = function importerToString(renderOpts) {
+  var collection = this._sorted ? Object.keys(this._actions)
+    .map(function mergeKeys(key) {
+      return this[key];
+    }, this._actions).reduce(function flatten(a, b) {
+      return a.concat(b);
+    }) : this._actions;
   var opts = {
     rootName: 'actions',
     cdata: true
@@ -117,11 +123,7 @@ Importer.prototype.toString = function importerToString(renderOpts) {
     opts.renderOpts = renderOpts;
 
   return new xml2js.Builder(opts).buildObject({
-    action: (this._sorted ? Object.keys(this._actions).map(function mergeKeys(action) {
-      return this._actions[action];
-    }, this).reduce(function flatten(a, b) {
-      return a.concat(b);
-    }) : this._actions).map(function makeCDATA(action) {
+    action: collection.map(function makeCDATA(action) {
       if (action.value) {
         action = extend({}, action);
         // for text to be wrapped in <![CDATA[]]> value must be an array.
