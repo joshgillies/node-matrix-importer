@@ -91,6 +91,23 @@ Importer.prototype.createLink = function createLink(opts) {
 };
 
 Importer.prototype.setAttribute = function setAttribute(opts) {
+  if (opts.attribute === 'attributes') return this.setAttributes(opts);
+  return this.addAction('set_attribute', opts);
+};
+
+Importer.prototype.setAttributes = function setAttributes(opts) {
+  if (Array.isArray(opts.value)) {
+    opts = extend({}, opts);
+    opts.value = [
+      'array (',
+      opts.value.map(function getObjects(value) {
+        return Object.keys(value).map(function toPHPObject(key) {
+          return '  \'' + key + '\' => \'' + value[key] + '\',';
+        });
+      }).join('\n'),
+      ');'
+    ].join('\n');
+  }
   return this.addAction('set_attribute', opts);
 };
 
