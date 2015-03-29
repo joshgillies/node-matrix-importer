@@ -17,7 +17,7 @@ var tests = {
       value: 'Test page'
     },
     expected: {
-      action_id: 'set_html_test_1',
+      action_id: 'set_test_1_html',
       action_type: 'set_attribute_value',
       asset: '1',
       attribute: 'html',
@@ -25,7 +25,7 @@ var tests = {
     },
     xml: [
       '<action>',
-      '  <action_id>set_html_test_1</action_id>',
+      '  <action_id>set_test_1_html</action_id>',
       '  <action_type>set_attribute_value</action_type>',
       '  <asset>1</asset>',
       '  <attribute>html</attribute>',
@@ -41,7 +41,7 @@ var tests = {
       value: [{ 'html': 'Test page' }]
     },
     expected: {
-      action_id: 'set_attributes_test_2',
+      action_id: 'set_test_2_attributes',
       action_type: 'set_attribute_value',
       asset: '1',
       attribute: 'attributes',
@@ -53,7 +53,7 @@ var tests = {
     },
     xml: [
       '<action>',
-      '  <action_id>set_attributes_test_2</action_id>',
+      '  <action_id>set_test_2_attributes</action_id>',
       '  <action_type>set_attribute_value</action_type>',
       '  <asset>1</asset>',
       '  <attribute>attributes</attribute>',

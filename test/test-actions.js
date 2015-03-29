@@ -99,7 +99,7 @@ test('create actions', function(t) {
         value: 'Test Site'
       },
       expected: {
-        action_id: 'set_html_Site_1',
+        action_id: 'set_Site_1_html',
         action_type: 'set_attribute_value',
         asset: '[[output://create_Site_1.assetid]]',
         attribute: 'html',
@@ -107,7 +107,7 @@ test('create actions', function(t) {
       },
       xml: [
         '<action>',
-        '  <action_id>set_html_Site_1</action_id>',
+        '  <action_id>set_Site_1_html</action_id>',
         '  <action_type>set_attribute_value</action_type>',
         '  <asset>[[output://create_Site_1.assetid]]</asset>',
         '  <attribute>html</attribute>',
