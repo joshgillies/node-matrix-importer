@@ -1,12 +1,12 @@
-var Importer = require('../');
-var xml2js = require('xml2js');
-var test = require('tape');
+var Importer = require('..')
+var xml2js = require('xml2js')
+var test = require('tape')
 
 var buildAction = new xml2js.Builder({
   rootName: 'action',
   headless: true,
   cdata: true
-});
+})
 
 var tests = {
   'set single attribute': {
@@ -63,16 +63,16 @@ var tests = {
   }
 }
 
-test('action set attribute(s)', function(t) {
+test('action set attribute(s)', function (t) {
   Object.keys(tests).forEach(function runner (action) {
-    var opts = tests[action].opts;
-    var xml = Importer();
-    var actionObj = xml.setAttribute(opts);
-    t.deepEqual(actionObj, tests[action].expected, action + ' object');
+    var opts = tests[action].opts
+    var xml = Importer()
+    var actionObj = xml.setAttribute(opts)
+    t.deepEqual(actionObj, tests[action].expected, action + ' object')
     // for text to be wrapped in <![CDATA[]]> value must be an array.
     // Ref: https://github.com/Leonidas-from-XIV/node-xml2js/issues/178
-    actionObj.value = [actionObj.value];
-    t.equal(buildAction.buildObject(actionObj), tests[action].xml, action + ' XML');
-  });
-  t.end();
-});
+    actionObj.value = [actionObj.value]
+    t.equal(buildAction.buildObject(actionObj), tests[action].xml, action + ' XML')
+  })
+  t.end()
+})

@@ -13,10 +13,11 @@
     "xtend": "^4.0.0"
   },
   "devDependencies": {
+    "standard": "^3.5.0",
     "tape": "^3.5.0"
   },
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "standard && tape test/*.js"
   },
   "repository": {
     "type": "git",
