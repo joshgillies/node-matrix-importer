@@ -34,6 +34,8 @@ function Importer (opts) {
         opts.id = asset.name.replace(' ', '_') + '_' + action.id.replace('#', '')
       } else if (asset) {
         opts.id = asset.name.replace(' ', '_') + '_' + (this._ids.length)
+      } else if (opts.type) {
+        opts.id = opts.type.replace(' ', '_') + '_' + (this._ids.length)
       } else {
         opts.id = Date.now() + ''
       }
@@ -74,22 +76,13 @@ Importer.prototype.addPath = function addPath (opts) {
   return this.addAction('add_path', opts)
 }
 
-Importer.prototype.createAsset = function createAsset (type, opts) {
+Importer.prototype.createAsset = function createAsset (opts) {
   var collection = this._sorted ? this._actions.create_asset : this._actions
   var pointer = this._ids.push(collection.length)
 
-  if (!opts) {
-    opts = {}
-  }
-
-  if (typeof type === 'string') {
-    opts.type = type
-  }
-
-  if (typeof type === 'object') {
-    opts = type
-    type = undefined
-  }
+  try {
+    opts.type = assets(opts.type).type_code
+  } catch (e) {}
 
   return extend(this.addAction('create_asset', opts), { id: '#' + pointer })
 }

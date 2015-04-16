@@ -56,9 +56,7 @@ Returns a new Action instance: `new Action('add_path', opts);`.
 
 For more information on Actions refer to the [node-matrix-import-actions] module.
 
-#### importer.createAsset(type, opts)
-
-The `type` argument is a shorthand of `opts.type`.
+#### importer.createAsset(opts)
 
 The `opts` argument accepts an object with the following properties:
 
