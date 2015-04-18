@@ -1,5 +1,6 @@
 var Action = require('node-matrix-import-actions')
 var assets = require('node-matrix-assets')
+var js2php = require('./js2php')
 var xml2js = require('xml2js')
 var extend = require('xtend')
 
@@ -92,23 +93,6 @@ Importer.prototype.createLink = function createLink (opts) {
 }
 
 Importer.prototype.setAttribute = function setAttribute (opts) {
-  if (opts.attribute === 'attributes') return this.setAttributes(opts)
-  return this.addAction('set_attribute', opts)
-}
-
-Importer.prototype.setAttributes = function setAttributes (opts) {
-  if (Array.isArray(opts.value)) {
-    opts = extend({}, opts)
-    opts.value = [
-      'array (',
-      opts.value.map(function getObjects (value) {
-        return Object.keys(value).map(function toPHPObject (key) {
-          return '  \'' + key + '\' => \'' + value[key] + '\','
-        })
-      }).join('\n'),
-      ');'
-    ].join('\n')
-  }
   return this.addAction('set_attribute', opts)
 }
 
@@ -145,9 +129,10 @@ Importer.prototype.toString = function importerToString (renderOpts) {
     action: collection.map(function makeCDATA (action) {
       if (action.value) {
         action = extend({}, action)
+
         // for text to be wrapped in <![CDATA[]]> value must be an array.
         // Ref: https://github.com/Leonidas-from-XIV/node-xml2js/issues/178
-        action.value = [action.value]
+        action.value = [js2php(action.value)]
       }
       return action
     })

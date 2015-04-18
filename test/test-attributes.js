@@ -1,5 +1,6 @@
 var Importer = require('..')
 var xml2js = require('xml2js')
+var js2php = require('../js2php')
 var test = require('tape')
 
 var buildAction = new xml2js.Builder({
@@ -38,18 +39,14 @@ var tests = {
       id: 'test_2',
       assetId: '1',
       attribute: 'attributes',
-      value: [{ 'html': 'Test page' }]
+      value: { 'html': 'Test page', 'test': 'some other attribute' }
     },
     expected: {
       action_id: 'set_test_2_attributes',
       action_type: 'set_attribute_value',
       asset: '1',
       attribute: 'attributes',
-      value: [
-        'array (',
-        '  \'html\' => \'Test page\',',
-        ');'
-      ].join('\n')
+      value: { 'html': 'Test page', 'test': 'some other attribute' }
     },
     xml: [
       '<action>',
@@ -57,7 +54,7 @@ var tests = {
       '  <action_type>set_attribute_value</action_type>',
       '  <asset>1</asset>',
       '  <attribute>attributes</attribute>',
-      '  <value><![CDATA[array (\n  \'html\' => \'Test page\',\n);]]></value>',
+      '  <value><![CDATA[array (\n  \'html\' => \'Test page\',\n  \'test\' => \'some other attribute\',\n);]]></value>',
       '</action>'
     ].join('\n')
   }
@@ -71,7 +68,7 @@ test('action set attribute(s)', function (t) {
     t.deepEqual(actionObj, tests[action].expected, action + ' object')
     // for text to be wrapped in <![CDATA[]]> value must be an array.
     // Ref: https://github.com/Leonidas-from-XIV/node-xml2js/issues/178
-    actionObj.value = [actionObj.value]
+    actionObj.value = [js2php(actionObj.value)]
     t.equal(buildAction.buildObject(actionObj), tests[action].xml, action + ' XML')
   })
   t.end()
