@@ -130,9 +130,7 @@ Importer.prototype.toString = function importerToString (renderOpts) {
       if (action.value) {
         action = extend({}, action)
 
-        // for text to be wrapped in <![CDATA[]]> value must be an array.
-        // Ref: https://github.com/Leonidas-from-XIV/node-xml2js/issues/178
-        action.value = [js2php(action.value)]
+        action.value = js2php(action.value)
       }
       return action
     })

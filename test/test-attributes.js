@@ -66,9 +66,8 @@ test('action set attribute(s)', function (t) {
     var xml = Importer()
     var actionObj = xml.setAttribute(opts)
     t.deepEqual(actionObj, tests[action].expected, action + ' object')
-    // for text to be wrapped in <![CDATA[]]> value must be an array.
-    // Ref: https://github.com/Leonidas-from-XIV/node-xml2js/issues/178
-    actionObj.value = [js2php(actionObj.value)]
+    // compile js object to php
+    actionObj.value = js2php(actionObj.value)
     t.equal(buildAction.buildObject(actionObj), tests[action].xml, action + ' XML')
   })
   t.end()
