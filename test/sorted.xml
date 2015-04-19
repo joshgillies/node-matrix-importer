@@ -24,7 +24,7 @@
     <value>Test Site</value>
   </action>
   <action>
-    <action_id>link_1_2_to_1</action_id>
+    <action_id>link_type_1_2_to_1</action_id>
     <action_type>create_link</action_type>
     <asset>[[output://create_Site_1.assetid]]</asset>
     <value/>
@@ -39,6 +39,7 @@
     <action_type>set_permission</action_type>
     <asset>[[output://create_Site_1.assetid]]</asset>
     <permission>1</permission>
+    <mute_error>0</mute_error>
     <granted>1</granted>
     <userid>7</userid>
   </action>

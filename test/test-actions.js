@@ -68,7 +68,7 @@ test('create actions', function (t) {
         from: '#1'
       },
       expected: {
-        action_id: 'link_1_2_to_1',
+        action_id: 'link_type_1_2_to_1',
         action_type: 'create_link',
         asset: '[[output://create_Site_1.assetid]]',
         assetid: 2,
@@ -80,7 +80,7 @@ test('create actions', function (t) {
       },
       xml: [
         '<action>',
-        '  <action_id>link_1_2_to_1</action_id>',
+        '  <action_id>link_type_1_2_to_1</action_id>',
         '  <action_type>create_link</action_type>',
         '  <asset>[[output://create_Site_1.assetid]]</asset>',
         '  <value/>',
@@ -120,6 +120,7 @@ test('create actions', function (t) {
         assetId: '#1',
         permission: 'read',
         granted: true,
+        muteError: false,
         userId: 7
       },
       expected: {
@@ -128,6 +129,7 @@ test('create actions', function (t) {
         asset: '[[output://create_Site_1.assetid]]',
         permission: 1,
         granted: 1,
+        mute_error: 0,
         userid: 7
       },
       xml: [
@@ -136,6 +138,7 @@ test('create actions', function (t) {
         '  <action_type>set_permission</action_type>',
         '  <asset>[[output://create_Site_1.assetid]]</asset>',
         '  <permission>1</permission>',
+        '  <mute_error>0</mute_error>',
         '  <granted>1</granted>',
         '  <userid>7</userid>',
         '</action>'
