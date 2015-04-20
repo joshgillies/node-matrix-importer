@@ -103,6 +103,33 @@ Returns a new Action instance: `new Action('set_attribute', opts);`.
 
 For more information on Actions refer to the [node-matrix-import-actions] module.
 
+#### importer.setMetadataSchema(opts)
+
+The `opts` argument accepts an object with the following properties:
+
+  * `opts.id`
+  * `opts.assetId`
+  * `opts.schemaId`
+  * `opts.granted`
+  * `opts.cascade`
+
+Returns a new Action instance: `new Action('set_metadata_schema', opts);`.
+
+For more information on Actions refer to the [node-matrix-import-actions] module.
+
+#### importer.setMetadataValue(opts)
+
+The `opts` argument accepts an object with the following properties:
+
+  * `opts.id`
+  * `opts.assetId`
+  * `opts.fieldId`
+  * `opts.value`
+
+Returns a new Action instance: `new Action('set_metadata_value', opts);`.
+
+For more information on Actions refer to the [node-matrix-import-actions] module.
+
 #### importer.setPermission(opts)
 
 The `opts` argument accepts an object with the following properties:

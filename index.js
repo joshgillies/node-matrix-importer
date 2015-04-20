@@ -13,7 +13,7 @@ function Importer (opts) {
     return new Importer(opts)
   }
 
-  if (!opts) {
+  if (!opts || !opts.hasOwnProperty) {
     opts = {}
   }
 
@@ -23,6 +23,8 @@ function Importer (opts) {
     create_asset: [],
     add_path: [],
     set_attribute: [],
+    set_metadata_schema: [],
+    set_metadata_value: [],
     create_link: [],
     set_permission: []
   } : []
@@ -56,16 +58,24 @@ Importer.prototype.addAction = function addAction (type, opts) {
     action.asset = outputAsId(this.getActionById(action.asset).action_id)
   }
 
-  if (this.getActionById(action.userid)) {
-    action.userid = outputAsId(this.getActionById(action.userid).action_id)
-  }
-
   if (this.getActionById(action.assetid)) {
     action.assetid = outputAsId(this.getActionById(action.assetid).action_id)
   }
 
+  if (this.getActionById(action.fieldid)) {
+    action.fieldid = outputAsId(this.getActionById(action.fieldid).action_id)
+  }
+
   if (this.getActionById(action.parentid)) {
     action.parentid = outputAsId(this.getActionById(action.parentid).action_id)
+  }
+
+  if (this.getActionById(action.schemaid)) {
+    action.schemaid = outputAsId(this.getActionById(action.schemaid).action_id)
+  }
+
+  if (this.getActionById(action.userid)) {
+    action.userid = outputAsId(this.getActionById(action.userid).action_id)
   }
 
   collection.push(action)
@@ -94,6 +104,14 @@ Importer.prototype.createLink = function createLink (opts) {
 
 Importer.prototype.setAttribute = function setAttribute (opts) {
   return this.addAction('set_attribute', opts)
+}
+
+Importer.prototype.setMetadataSchema = function setAttribute (opts) {
+  return this.addAction('set_metadata_schema', opts)
+}
+
+Importer.prototype.setMetadataValue = function setAttribute (opts) {
+  return this.addAction('set_metadata_value', opts)
 }
 
 Importer.prototype.setPermission = function setPermission (opts) {

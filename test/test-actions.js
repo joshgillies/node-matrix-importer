@@ -115,6 +115,57 @@ test('create actions', function (t) {
         '</action>'
       ].join('\n')
     },
+    set_metadata_value: {
+      opts: {
+        id: 'Site_1',
+        assetId: '1',
+        fieldId: '2',
+        value: 'Test'
+      },
+      expected: {
+        action_id: 'set_Site_1_metadata_field_2',
+        action_type: 'set_metadata_value',
+        asset: '1',
+        fieldid: '2',
+        value: 'Test'
+      },
+      xml: [
+        '<action>',
+        '  <action_id>set_Site_1_metadata_field_2</action_id>',
+        '  <action_type>set_metadata_value</action_type>',
+        '  <asset>1</asset>',
+        '  <fieldid>2</fieldid>',
+        '  <value>Test</value>',
+        '</action>'
+      ].join('\n')
+    },
+    set_metadata_schema: {
+      opts: {
+        id: 'Site_1',
+        assetId: '1',
+        schemaId: '2',
+        granted: true,
+        cascade: true
+      },
+      expected: {
+        action_id: 'set_Site_1_metadata_schema_2',
+        action_type: 'set_metadata_schema',
+        asset: '1',
+        schemaid: '2',
+        granted: 1,
+        cascades: 1
+      },
+      xml: [
+        '<action>',
+        '  <action_id>set_Site_1_metadata_schema_2</action_id>',
+        '  <action_type>set_metadata_schema</action_type>',
+        '  <asset>1</asset>',
+        '  <schemaid>2</schemaid>',
+        '  <granted>1</granted>',
+        '  <cascades>1</cascades>',
+        '</action>'
+      ].join('\n')
+    },
     set_permission: {
       opts: {
         assetId: '#1',
@@ -175,6 +226,16 @@ test('create actions', function (t) {
     if (test === 'set_attribute') {
       actionImporter = xml.setAttribute(opts)
       xmlSorted.setAttribute(opts)
+    }
+
+    if (test === 'set_metadata_value') {
+      actionImporter = xml.setMetadataValue(opts)
+      xmlSorted.setMetadataValue(opts)
+    }
+
+    if (test === 'set_metadata_schema') {
+      actionImporter = xml.setMetadataSchema(opts)
+      xmlSorted.setMetadataSchema(opts)
     }
 
     if (test === 'set_permission') {

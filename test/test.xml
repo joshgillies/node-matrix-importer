@@ -35,6 +35,21 @@
     <value>Test Site</value>
   </action>
   <action>
+    <action_id>set_Site_1_metadata_field_2</action_id>
+    <action_type>set_metadata_value</action_type>
+    <asset>1</asset>
+    <fieldid>2</fieldid>
+    <value>Test</value>
+  </action>
+  <action>
+    <action_id>set_Site_1_metadata_schema_2</action_id>
+    <action_type>set_metadata_schema</action_type>
+    <asset>1</asset>
+    <schemaid>2</schemaid>
+    <granted>1</granted>
+    <cascades>1</cascades>
+  </action>
+  <action>
     <action_id>set_permission_1_read_7</action_id>
     <action_type>set_permission</action_type>
     <asset>[[output://create_Site_1.assetid]]</asset>
