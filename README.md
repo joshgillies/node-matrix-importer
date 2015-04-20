@@ -136,6 +136,7 @@ The `opts` argument accepts an object with the following properties:
 
   * `opts.assetId`
   * `opts.permission`
+  * `opts.muteError`
   * `opts.granted`
   * `opts.userId`
 
