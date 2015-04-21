@@ -52,7 +52,7 @@ Importer.prototype.addAction = function addAction (type, opts) {
   var collection = this._sorted ? this._actions[type] : this._actions
   var action = new Action(type, this._createActionId.call(this, opts))
 
-  action.action_id = action.action_id.replace('#', '')
+  action.action_id = action.action_id.replace(/#/g, '')
 
   if (this.getActionById(action.asset)) {
     action.asset = outputAsId(this.getActionById(action.asset).action_id)
