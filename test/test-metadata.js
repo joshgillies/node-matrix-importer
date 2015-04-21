@@ -150,7 +150,7 @@ function extraTests (assert) {
   assert.end()
 }
 
-function defautlTests (assert) {
+function defaultTests (assert) {
   var test = tests.default
   var setValue = xml.setMetadataValue(test['set_metadata_value'].opts)
   var setSchema = xml.setMetadataSchema(test['set_metadata_schema'].opts)
@@ -166,4 +166,4 @@ function defautlTests (assert) {
   assert.end()
 }
 
-test('create metadata action(s)', defautlTests)
+test('create metadata action(s)', defaultTests)
