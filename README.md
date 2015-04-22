@@ -3,38 +3,39 @@
 Generate XML for the "[Import Assets from XML Tool]" with JavaScript!
 
 [![Build Status](https://travis-ci.org/joshgillies/node-matrix-importer.svg)](https://travis-ci.org/joshgillies/node-matrix-importer)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
 ## Example
 
 ```js
-var Importer = require('node-matrix-importer');
-var xml = Importer();
+var Importer = require('node-matrix-importer')
+var xml = Importer()
 
 var rootFolder = xml.createAsset('folder', {
   parentId: 1
-});
+})
 var mySite = xml.createAsset('site', {
   parentId: rootFolder.id
-});
+})
 
 xml.setAttribute({
   assetId: rootFolder.id,
   attribute: 'name',
   value: 'Sites'
-});
+})
 
 xml.setAttribute({
   assetId: mySite.id,
   attribute: 'name',
   value: 'My Site'
-});
+})
 
-console.log(xml.toString());
+console.log(xml.toString())
 ```
 
 ## API
 
-### Importer (WIP)
+### Importer
 
 `node-matrix-importer` provides an API for generating XML for the "[Import Assets from XML Tool]" via `require('node-matrix-importer')`.
 
