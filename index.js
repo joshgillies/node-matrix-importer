@@ -1,8 +1,10 @@
 var Action = require('node-matrix-import-actions')
 var assets = require('node-matrix-assets')
+var EventEmitter = require('events').EventEmitter
+var extend = require('xtend')
+var inherits = require('inherits')
 var js2php = require('./js2php')
 var xml2js = require('xml2js')
-var extend = require('xtend')
 
 function outputAsId (actionId) {
   return '[[output://' + actionId + '.assetid]]'
@@ -16,6 +18,8 @@ function Importer (opts) {
   if (!opts || !opts.hasOwnProperty) {
     opts = {}
   }
+
+  EventEmitter.call(this)
 
   this._ids = []
   this._sorted = !!opts.sortActions
@@ -48,6 +52,8 @@ function Importer (opts) {
   }
 }
 
+inherits(Importer, EventEmitter)
+
 Importer.prototype.addAction = function addAction (type, opts) {
   var collection = this._sorted ? this._actions[type] : this._actions
   var action = new Action(type, this._createActionId.call(this, opts))
@@ -79,6 +85,8 @@ Importer.prototype.addAction = function addAction (type, opts) {
   }
 
   collection.push(action)
+
+  this.emit(type, action)
 
   return action
 }
