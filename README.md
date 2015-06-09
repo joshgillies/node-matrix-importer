@@ -74,7 +74,7 @@ The `opts` argument accepts an object with the following properties:
   * `opts.path`
   * `opts.assetId`
 
-Returns a new Action instance: `new Action('add_path', opts);`.
+Internally this is a helper around `importer.addAction('add_path', opts);`.
 
 For more information on Actions refer to the [node-matrix-import-actions] module.
 
@@ -90,11 +90,13 @@ The `opts` argument accepts an object with the following properties:
   * `opts.dependant`
   * `opts.exclusive`
 
-Returns a new Action instance: `new Action('create_asset', opts);`, with the addition
-of an `action.id` propterty; `action.id` in this case is a String in the form of `'#{id}'`,
-where `id` is a unique identifier.
+Internally this is a helper around `importer.addAction('create_asset', opts);`,
+the returned object will additionally have an `action.id` propterty; `action.id`
+in this case is a String in the form of `'#{id}'`, where `id` is a unique identifier.
 
-For more information on Actions refer to the [node-matrix-import-actions] module.
+This is useful should you later wish to retrieve the action object via `importer.getActionById(action.id)`.
+
+Refer to the `importer.addAction` section for more information.
 
 #### importer.createLink(opts)
 
@@ -108,9 +110,9 @@ The `opts` argument accepts an object with the following properties:
   * `opts.exclusive`
   * `opts.major`
 
-Returns a new Action instance: `new Action('create_link', opts);`.
+Internally this is a helper around `importer.addAction('create_link', opts);`.
 
-For more information on Actions refer to the [node-matrix-import-actions] module.
+Refer to the `importer.addAction` section for more information.
 
 #### importer.setAttribute(opts)
 
@@ -121,9 +123,9 @@ The `opts` argument accepts an object with the following properties:
   * `opts.attribute`
   * `opts.value`
 
-Returns a new Action instance: `new Action('set_attribute', opts);`.
+Internally this is a helper around `importer.addAction('set_attribute', opts);`.
 
-For more information on Actions refer to the [node-matrix-import-actions] module.
+Refer to the `importer.addAction` section for more information.
 
 #### importer.setMetadataSchema(opts)
 
@@ -135,9 +137,9 @@ The `opts` argument accepts an object with the following properties:
   * `opts.granted`
   * `opts.cascade`
 
-Returns a new Action instance: `new Action('set_metadata_schema', opts);`.
+Internally this is a helper around `importer.addAction('set_metadata_schema', opts);`.
 
-For more information on Actions refer to the [node-matrix-import-actions] module.
+Refer to the `importer.addAction` section for more information.
 
 #### importer.setMetadataValue(opts)
 
@@ -148,9 +150,9 @@ The `opts` argument accepts an object with the following properties:
   * `opts.fieldId`
   * `opts.value`
 
-Returns a new Action instance: `new Action('set_metadata_value', opts);`.
+Internally this is a helper around `importer.addAction('set_metadata_value', opts);`.
 
-For more information on Actions refer to the [node-matrix-import-actions] module.
+Refer to the `importer.addAction` section for more information.
 
 #### importer.setPermission(opts)
 
@@ -162,7 +164,20 @@ The `opts` argument accepts an object with the following properties:
   * `opts.granted`
   * `opts.userId`
 
-Returns a new Action instance: `new Action('set_permission', opts);`.
+Internally this is a helper around `importer.addAction('set_permission', opts);`.
+
+Refer to the `importer.addAction` section for more information.
+
+#### importer.addAction(type, opts)
+
+The `importer.addAction` method is responsible for creating and assigning new Actions
+to the `importer` internal collection.
+
+The `type` argument describes the type of action to create, and can be any action type
+as supported by [node-matrix-import-actions]. Additionally, the `opts` argument expects
+an object as appropriate to the defined action type.
+
+Returns a new Action instance: `new Action(type, opts);`.
 
 For more information on Actions refer to the [node-matrix-import-actions] module.
 
