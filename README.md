@@ -32,11 +32,13 @@ tool for automation, or even maintenance of Squiz Matrix implementations.
 var Importer = require('node-matrix-importer')
 var xml = Importer()
 
-var rootFolder = xml.createAsset('folder', {
-  parentId: 1
+var rootFolder = xml.createAsset({
+  parentId: 1,
+  type: 'folder'
 })
-var mySite = xml.createAsset('site', {
-  parentId: rootFolder.id
+var mySite = xml.createAsset({
+  parentId: rootFolder.id,
+  type: 'site'
 })
 
 xml.setAttribute({
