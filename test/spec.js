@@ -48,6 +48,37 @@ module.exports = {
       '</action>'
     ].join('\n')
   },
+  create_file_asset: {
+    opts: {
+      parentId: 1,
+      type: 'file',
+      file: '/test.txt'
+    },
+    expected: {
+      action_id: 'create_File_2',
+      action_type: 'create_file_asset',
+      type_code: 'file',
+      file_path: '/test.txt',
+      parentid: 1,
+      value: '',
+      link_type: 1,
+      is_dependant: 0,
+      is_exclusive: 0
+    },
+    xml: [
+      '<action>',
+      '  <action_id>create_File_2</action_id>',
+      '  <action_type>create_file_asset</action_type>',
+      '  <file_path>/test.txt</file_path>',
+      '  <type_code>file</type_code>',
+      '  <parentid>1</parentid>',
+      '  <value/>',
+      '  <link_type>1</link_type>',
+      '  <is_dependant>0</is_dependant>',
+      '  <is_exclusive>0</is_exclusive>',
+      '</action>'
+    ].join('\n')
+  },
   create_link: {
     opts: {
       to: 2,

@@ -17,6 +17,17 @@
     <is_exclusive>0</is_exclusive>
   </action>
   <action>
+    <action_id>create_File_2</action_id>
+    <action_type>create_file_asset</action_type>
+    <file_path>/test.txt</file_path>
+    <type_code>file</type_code>
+    <parentid>1</parentid>
+    <value/>
+    <link_type>1</link_type>
+    <is_dependant>0</is_dependant>
+    <is_exclusive>0</is_exclusive>
+  </action>
+  <action>
     <action_id>link_type_1_2_to_1</action_id>
     <action_type>create_link</action_type>
     <asset>[[output://create_Site_1.assetid]]</asset>

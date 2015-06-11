@@ -30,9 +30,17 @@ test('create actions', function (t) {
       asset = xml.createAsset(opts)
       actionImporter = asset
       id = asset.id
-      t.equal(asset.id, '#1', 'action ' + test + ' returns ID')
+      t.equal(id, '#1', 'action ' + test + ' returns ID')
       t.deepEqual(asset, xml.getActionById(id), 'can retrieve action from ID')
       t.notOk(xml.getActionById(100), 'undefined if no action exists with specified ID')
+      xmlSorted.createAsset(opts)
+      // asset id no longer needed
+      delete asset.id
+    }
+
+    if (test === 'create_file_asset') {
+      asset = xml.createAsset(opts)
+      actionImporter = asset
       xmlSorted.createAsset(opts)
       // asset id no longer needed
       delete asset.id

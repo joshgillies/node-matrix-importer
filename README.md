@@ -84,6 +84,7 @@ The `opts` argument accepts an object with the following properties:
 
   * `opts.id`
   * `opts.parentId`
+  * `opts.file`
   * `opts.type`
   * `opts.link`
   * `opts.value`
@@ -91,12 +92,14 @@ The `opts` argument accepts an object with the following properties:
   * `opts.exclusive`
 
 Internally this is a helper around `importer.addAction('create_asset', opts);`,
-the returned object will additionally have an `action.id` propterty; `action.id`
+or `importer.addAction('create_file_asset', opts);` if `opts.file` is set.
+
+Refer to the `importer.addAction` section for more information.
+
+The returned object will additionally have an `action.id` propterty; `action.id`
 in this case is a String in the form of `'#{id}'`, where `id` is a unique identifier.
 
 This is useful should you later wish to retrieve the action object via `importer.getActionById(action.id)`.
-
-Refer to the `importer.addAction` section for more information.
 
 #### importer.createLink(opts)
 

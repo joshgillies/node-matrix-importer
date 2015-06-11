@@ -9,7 +9,7 @@
   "dependencies": {
     "inherits": "^2.0.1",
     "node-matrix-assets": "^2.0.0",
-    "node-matrix-import-actions": "^1.0.3",
+    "node-matrix-import-actions": "^1.1.0",
     "xml2js": "^0.4.8",
     "xtend": "^4.0.0"
   },

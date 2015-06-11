@@ -55,7 +55,7 @@ function Importer (opts) {
 inherits(Importer, EventEmitter)
 
 Importer.prototype.addAction = function addAction (type, opts) {
-  var collection = this._sorted ? this._actions[type] : this._actions
+  var collection = this._sorted ? this._actions[opts.file ? 'create_asset' : type] : this._actions
   var action = new Action(type, this._createActionId.call(this, opts))
 
   action.action_id = action.action_id.replace(/#/g, '')
@@ -96,14 +96,16 @@ Importer.prototype.addPath = function addPath (opts) {
 }
 
 Importer.prototype.createAsset = function createAsset (opts) {
+  // move the bulk of this function into `this.addAction`.
   var collection = this._sorted ? this._actions.create_asset : this._actions
   var pointer = this._ids.push(collection.length)
 
   try {
+    // use valid type_code where possible
     opts.type = assets(opts.type).type_code
   } catch (e) {}
 
-  return extend(this.addAction('create_asset', opts), { id: '#' + pointer })
+  return extend(this.addAction(opts.file ? 'create_file_asset' : 'create_asset', opts), { id: '#' + pointer })
 }
 
 Importer.prototype.createLink = function createLink (opts) {
