@@ -7,7 +7,7 @@ Generate XML for the "[Import Assets from XML Tool]" with JavaScript!
 
 ## Motivation
 
-`node-matrix-importer` aims to provide a utility for both generation and optimisation
+`node-matrix-importer` aims to provide a utility for both generation and optimization
 of asset XML manifests as expected by Squiz Matrix' "[Import Assets from XML Tool]".
 
 Currently the only way of generating an import.xml is either by exporting an
@@ -22,7 +22,7 @@ tool for automation, or even maintenance of Squiz Matrix implementations.
 
  - Unlock the true potential of the "[Import Assets from XML Tool]".
  - Provide programatic API for generating asset import.xml manifests.
- - Optimise import.xml manifests by batching various operations.
+ - Optimize import.xml manifests by batching various operations.
  - Parse exported asset trees for local replication, thus enabling offline development.
  - Investigate alternate uses for the "[Import Assets from XML Tool]". eg. update assets from XML.
 
