@@ -25,8 +25,8 @@ function Importer (opts) {
   this._sorted = !!opts.sortActions
   this._actions = this._sorted ? {
     create_asset: [],
-    add_path: [],
-    set_attribute: [],
+    add_web_path: [],
+    set_attribute_value: [],
     set_metadata_schema: [],
     set_metadata_value: [],
     create_link: [],
@@ -92,7 +92,7 @@ Importer.prototype.addAction = function addAction (type, opts) {
 }
 
 Importer.prototype.addPath = function addPath (opts) {
-  return this.addAction('add_path', opts)
+  return this.addAction('add_web_path', opts)
 }
 
 Importer.prototype.createAsset = function createAsset (opts) {
@@ -113,7 +113,7 @@ Importer.prototype.createLink = function createLink (opts) {
 }
 
 Importer.prototype.setAttribute = function setAttribute (opts) {
-  return this.addAction('set_attribute', opts)
+  return this.addAction('set_attribute_value', opts)
 }
 
 Importer.prototype.setMetadataSchema = function setAttribute (opts) {
