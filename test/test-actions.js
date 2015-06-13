@@ -56,6 +56,11 @@ test('create actions', function (t) {
       xmlSorted.setAttribute(opts)
     }
 
+    if (test === 'set_design_parse_file') {
+      actionImporter = xml.setParseFile(opts)
+      xmlSorted.setParseFile(opts)
+    }
+
     if (test === 'set_metadata_value') {
       actionImporter = xml.setMetadataValue(opts)
       xmlSorted.setMetadataValue(opts)

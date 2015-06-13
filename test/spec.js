@@ -132,6 +132,27 @@ module.exports = {
       '</action>'
     ].join('\n')
   },
+  set_design_parse_file: {
+    opts: {
+      id: 'Design_1',
+      assetId: '1',
+      file: '/parse_file.html'
+    },
+    expected: {
+      action_id: 'set_Design_1_parse_file',
+      action_type: 'set_design_parse_file',
+      asset: '1',
+      file_path: '/parse_file.html'
+    },
+    xml: [
+      '<action>',
+      '  <action_id>set_Design_1_parse_file</action_id>',
+      '  <action_type>set_design_parse_file</action_type>',
+      '  <asset>1</asset>',
+      '  <file_path>/parse_file.html</file_path>',
+      '</action>'
+    ].join('\n')
+  },
   set_metadata_value: {
     opts: {
       id: 'Site_1',

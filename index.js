@@ -27,6 +27,7 @@ function Importer (opts) {
     create_asset: [],
     add_web_path: [],
     set_attribute_value: [],
+    set_design_parse_file: [],
     set_metadata_schema: [],
     set_metadata_value: [],
     create_link: [],
@@ -55,7 +56,7 @@ function Importer (opts) {
 inherits(Importer, EventEmitter)
 
 Importer.prototype.addAction = function addAction (type, opts) {
-  var collection = this._sorted ? this._actions[opts.file ? 'create_asset' : type] : this._actions
+  var collection = this._sorted ? this._actions[opts.file && type !== 'set_design_parse_file' ? 'create_asset' : type] : this._actions
   var action = new Action(type, this._createActionId.call(this, opts))
 
   action.action_id = action.action_id.replace(/#/g, '')
@@ -114,6 +115,10 @@ Importer.prototype.createLink = function createLink (opts) {
 
 Importer.prototype.setAttribute = function setAttribute (opts) {
   return this.addAction('set_attribute_value', opts)
+}
+
+Importer.prototype.setParseFile = function setParseFile (opts) {
+  return this.addAction('set_design_parse_file', opts)
 }
 
 Importer.prototype.setMetadataSchema = function setAttribute (opts) {

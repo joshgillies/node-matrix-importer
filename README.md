@@ -132,6 +132,18 @@ Internally this is a helper around `importer.addAction('set_attribute', opts);`.
 
 Refer to the `importer.addAction` section for more information.
 
+#### importer.setParseFile(opts)
+
+The `opts` argument accepts an object with the following properties:
+
+  * `opts.id`
+  * `opts.assetId`
+  * `opts.file`
+
+Internally this is a helper around `importer.addAction('set_design_parse_file', opts);`.
+
+Refer to the `importer.addAction` section for more information.
+
 #### importer.setMetadataSchema(opts)
 
 The `opts` argument accepts an object with the following properties:

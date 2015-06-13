@@ -35,6 +35,12 @@
     <value>Test Site</value>
   </action>
   <action>
+    <action_id>set_Design_1_parse_file</action_id>
+    <action_type>set_design_parse_file</action_type>
+    <asset>1</asset>
+    <file_path>/parse_file.html</file_path>
+  </action>
+  <action>
     <action_id>set_Site_1_metadata_schema_2</action_id>
     <action_type>set_metadata_schema</action_type>
     <asset>1</asset>
