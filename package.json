@@ -1,6 +1,6 @@
 {
   "name": "node-matrix-importer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate XML for the \"Import Assets from XML Tool\" with JavaScript!",
   "main": "index.js",
   "directories": {
