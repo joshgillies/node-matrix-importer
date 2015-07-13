@@ -16,7 +16,7 @@ test('event emitter', function (assert) {
       xml.addPath(opts)
     }
 
-    if (test === 'create_asset') {
+    if (test === 'create_asset' || test === 'create_file_asset') {
       xml.createAsset(opts)
     }
 

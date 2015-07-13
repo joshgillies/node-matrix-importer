@@ -94,19 +94,51 @@ var tests = {
       '  <is_exclusive>0</is_exclusive>',
       '</action>'
     ].join('\n')
+  },
+  'create file asset': {
+    opts: {
+      parentId: '#1',
+      type: 'file',
+      file: '/test.txt'
+    },
+    expected: {
+      id: '#4',
+      action_id: 'create_File_4',
+      action_type: 'create_file_asset',
+      type_code: 'file',
+      file_path: '/test.txt',
+      parentid: '[[output://create_Site_1.assetid]]',
+      value: '',
+      link_type: 1,
+      is_dependant: 0,
+      is_exclusive: 0
+    },
+    xml: [
+      '<action>',
+      '  <action_id>create_File_4</action_id>',
+      '  <action_type>create_file_asset</action_type>',
+      '  <file_path>/test.txt</file_path>',
+      '  <type_code>file</type_code>',
+      '  <parentid>[[output://create_Site_1.assetid]]</parentid>',
+      '  <value/>',
+      '  <link_type>1</link_type>',
+      '  <is_dependant>0</is_dependant>',
+      '  <is_exclusive>0</is_exclusive>',
+      '</action>'
+    ].join('\n')
   }
 }
 
-test('action create asset(s)', function (t) {
+test('action create asset(s)', function (assert) {
   var xml = Importer()
   Object.keys(tests).forEach(function runner (action) {
     var opts = tests[action].opts
     var asset = xml.createAsset(opts)
-    t.equal(asset.id, tests[action].expected.id, 'internal id present')
-    t.deepEqual(asset, tests[action].expected, action + ' object')
+    assert.equal(asset.id, tests[action].expected.id, 'internal id present')
+    assert.deepEqual(asset, tests[action].expected, action + ' object')
     // asset id no longer needed. Code smell much?!
     delete asset.id
-    t.equal(buildAction.buildObject(asset), tests[action].xml, action + ' XML')
+    assert.equal(buildAction.buildObject(asset), tests[action].xml, action + ' XML')
   })
-  t.end()
+  assert.end()
 })
