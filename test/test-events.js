@@ -9,6 +9,11 @@ test('event emitter', function (assert) {
     var expected = spec[test].expected
 
     xml.on(test, function (result) {
+      if (result.id) {
+        // smell, need to work out a better way to handle this
+        delete result.id
+      }
+
       assert.deepEqual(expected, result, test + ' event emitted')
     })
 
@@ -40,5 +45,18 @@ test('event emitter', function (assert) {
       xml.setPermission(opts)
     }
   })
+  assert.end()
+})
+
+test('shouldn\'t mutate action object', function (assert) {
+  var importer = Importer()
+  var emittedAction
+
+  // emitted action should be NO different to the returned action object.
+  importer.on('create_asset', function (asset) {
+    emittedAction = asset
+  })
+
+  assert.deepEqual(importer.createAsset(spec['create_asset'].opts), emittedAction)
   assert.end()
 })

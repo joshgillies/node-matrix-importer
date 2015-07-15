@@ -58,6 +58,7 @@ inherits(Importer, EventEmitter)
 Importer.prototype.addAction = function addAction (type, opts) {
   var collection = this._sorted ? this._actions[opts.file && type !== 'set_design_parse_file' ? 'create_asset' : type] : this._actions
   var action = new Action(type, this._createActionId.call(this, opts))
+  var deferredEmitters = ['create_asset', 'create_file_asset']
 
   action.action_id = action.action_id.replace(/#/g, '')
 
@@ -87,7 +88,9 @@ Importer.prototype.addAction = function addAction (type, opts) {
 
   collection.push(action)
 
-  this.emit(type, action)
+  if (!~deferredEmitters.indexOf(type)) {
+    this.emit(type, action)
+  }
 
   return action
 }
@@ -100,13 +103,18 @@ Importer.prototype.createAsset = function createAsset (opts) {
   // move the bulk of this function into `this.addAction`.
   var collection = this._sorted ? this._actions.create_asset : this._actions
   var pointer = this._ids.push(collection.length)
+  var type = opts.file ? 'create_file_asset' : 'create_asset'
 
   try {
     // use valid type_code where possible
     opts.type = assets(opts.type).type_code
   } catch (e) {}
 
-  return extend(this.addAction(opts.file ? 'create_file_asset' : 'create_asset', opts), { id: '#' + pointer })
+  var action = extend(this.addAction(type, opts), { id: '#' + pointer })
+
+  this.emit(type, action)
+
+  return action
 }
 
 Importer.prototype.createLink = function createLink (opts) {
