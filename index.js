@@ -57,7 +57,7 @@ inherits(Importer, EventEmitter)
 
 Importer.prototype.addAction = function addAction (type, opts) {
   var collection = this._sorted ? this._actions[opts.file && type !== 'set_design_parse_file' ? 'create_asset' : type] : this._actions
-  var action = new Action(type, this._createActionId.call(this, opts))
+  var action = new Action(type, this._createActionId(opts))
   var deferredEmitters = ['create_asset', 'create_file_asset']
 
   action.action_id = action.action_id.replace(/#/g, '')
