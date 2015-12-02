@@ -22,6 +22,7 @@ function Importer (opts) {
   EventEmitter.call(this)
 
   this._ids = []
+  this._cache = null
   this._sorted = !!opts.sortActions
   this._actions = this._sorted ? {
     create_asset: [],
@@ -59,6 +60,11 @@ Importer.prototype.addAction = function addAction (type, opts) {
   var collection = this._sorted ? this._actions[opts.file && type !== 'set_design_parse_file' ? 'create_asset' : type] : this._actions
   var action = new Action(type, this._createActionId(opts))
   var deferredEmitters = ['create_asset', 'create_file_asset']
+
+  // clear cache
+  if (this._cache) {
+    this._cache = null
+  }
 
   action.action_id = action.action_id.replace(/#/g, '')
 
@@ -151,6 +157,10 @@ Importer.prototype.getActionById = function getActionById (id) {
 }
 
 Importer.prototype.toString = function importerToString (renderOpts) {
+  if (this._cache) {
+    return this._cache
+  }
+
   var collection = this._sorted ? Object.keys(this._actions)
     .map(function mergeKeys (key) {
       return this[key]
@@ -166,7 +176,7 @@ Importer.prototype.toString = function importerToString (renderOpts) {
     opts.renderOpts = renderOpts
   }
 
-  return new xml2js.Builder(opts).buildObject({
+  this._cache = new xml2js.Builder(opts).buildObject({
     action: collection.map(function makeCDATA (action) {
       if (action.value) {
         action = extend({}, action)
@@ -176,6 +186,8 @@ Importer.prototype.toString = function importerToString (renderOpts) {
       return action
     })
   })
+
+  return this._cache
 }
 
 module.exports = Importer
