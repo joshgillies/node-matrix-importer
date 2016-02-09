@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "inherits": "^2.0.1",
-    "node-matrix-assets": "^2.0.0",
+    "node-matrix-asset-list": "^1.1.0",
     "node-matrix-import-actions": "^2.0.1",
     "xml2js": "^0.4.11",
     "xtend": "^4.0.0"

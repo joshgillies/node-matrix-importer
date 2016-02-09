@@ -1,5 +1,5 @@
 var Action = require('node-matrix-import-actions')
-var assets = require('node-matrix-assets')
+var assets = require('node-matrix-asset-list')
 var EventEmitter = require('events').EventEmitter
 var extend = require('xtend')
 var inherits = require('inherits')
