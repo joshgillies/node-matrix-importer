@@ -110,11 +110,12 @@ Importer.prototype.createAsset = function createAsset (opts) {
   var collection = this._sorted ? this._actions.create_asset : this._actions
   var pointer = this._ids.push(collection.length)
   var type = opts.file ? 'create_file_asset' : 'create_asset'
+  var asset = assets(opts.type)
 
-  try {
+  if (asset) {
     // use valid type_code where possible
-    opts.type = assets(opts.type).type_code
-  } catch (e) {}
+    opts.type = asset.type_code
+  }
 
   var action = extend(this.addAction(type, opts), { id: '#' + pointer })
 
