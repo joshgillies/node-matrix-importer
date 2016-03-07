@@ -1,6 +1,7 @@
 var importer = require('..')
 var spec = require('./spec')
 var xml2js = require('xml2js')
+var path = require('path')
 var test = require('tape')
 var fs = require('fs')
 
@@ -78,7 +79,7 @@ test('create actions', function (t) {
     t.deepEqual(actionImporter, expected.obj, 'action ' + test + ' from Importer object')
     t.equal(buildAction.buildObject(actionImporter), expected.xml, 'action ' + test + ' from Importer XML')
   })
-  t.equal(xml.toString(), fs.readFileSync(__dirname + '/test.xml', { encoding: 'utf-8' }), 'generate valid import XML')
-  t.equal(xmlSorted.toString(), fs.readFileSync(__dirname + '/sorted.xml', { encoding: 'utf-8' }), 'generate valid sorted import XML')
+  t.equal(xml.toString(), fs.readFileSync(path.join(__dirname, '/test.xml'), { encoding: 'utf-8' }), 'generate valid import XML')
+  t.equal(xmlSorted.toString(), fs.readFileSync(path.join(__dirname, '/sorted.xml'), { encoding: 'utf-8' }), 'generate valid sorted import XML')
   t.end()
 })
